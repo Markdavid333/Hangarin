@@ -4,13 +4,78 @@
 <head>
     <title>Login</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #ffc1cc, #ff6b81); /* soft pink gradient */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .card {
+            border-radius: 20px;
+            padding: 2rem;
+            background-color: #fff;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+        }
+
+        h3.fw-bold {
+            color: #ff4c70; /* darker pink heading */
+        }
+
+        p.text-muted {
+            color: #666;
+        }
+
+        .btn-danger {
+            background-color: #ff6b81;
+            border: none;
+        }
+
+        .btn-danger:hover {
+            background-color: #ff4c70;
+        }
+
+        .btn-dark {
+            background-color: #444;
+            border: none;
+        }
+
+        .btn-dark:hover {
+            background-color: #222;
+        }
+
+        input.form-control {
+            border-radius: 10px;
+            padding: 0.75rem;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
 </head>
 
-<body class="bg-light">
+<body>
 
-<div class="container d-flex justify-content-center align-items-center vh-100">
+<div class="container">
 
-    <div class="card shadow-lg p-4 border-0" style="width: 400px; border-radius: 15px;">
+    <div class="card shadow-lg border-0" style="width: 400px;">
 
         <div class="text-center mb-4">
             <h3 class="fw-bold">Welcome Back</h3>
@@ -46,7 +111,7 @@
             </div>
 
             <div class="d-grid">
-                <button type="submit" class="btn btn-primary">
+                <button type="submit" class="btn btn-primary" style="background-color:#ff6b81; border:none;">
                     Login
                 </button>
             </div>

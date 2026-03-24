@@ -2,20 +2,19 @@
 *.pyc
 __pycache__/
 
-# Virtual Environment
+# Virtual environments
 psusenv/
 venv/
 env/
 
-# Django
+# Django database & logs
 db.sqlite3
 *.log
 
-# Environment Variables
+# Environment variables
 .env
 
-# VS Code
+# IDE files
 .vscode/
-
-# macOS
 .DS_Store
+*
