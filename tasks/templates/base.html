@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <title>{% block title %}Hangarin{% endblock %}</title> 
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+  <style>
+    body {
+      overflow-x: hidden;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f0f2f5;
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+      height: 100vh;
+      background: linear-gradient(180deg, #ff9de0, #e55dd3); /* soft pink-to-purple gradient */
+      color: white;
+      transition: 0.3s;
+      box-shadow: 2px 0 8px rgba(0,0,0,0.2);
+    }
+
+    .sidebar h4 {
+      font-weight: bold;
+      color: #fff;
+      text-align: center;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      letter-spacing: 1px;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    }
+
+    .sidebar a {
+      color: #fff;
+      text-decoration: none;
+      display: block;
+      padding: 14px 20px;
+      font-size: 16px;
+      border-radius: 8px;
+      margin: 6px 10px;
+      transition: all 0.3s ease;
+    }
+
+    .sidebar a:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+      transform: translateX(5px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+
+    .sidebar .active {
+      background-color: #ff63c4; /* vibrant active pink */
+      color: white;
+      font-weight: bold;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+
+    /* CONTENT */
+    .content {
+      padding: 30px;
+      background-color: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      min-height: 85vh;
+    }
+
+    /* COLLAPSE BUTTON */
+    .toggle-btn {
+      cursor: pointer;
+      font-size: 22px;
+      color: #1e272e;
+    }
+
+    /* HEADER */
+    .d-flex.border-bottom.p-3 {
+      background-color: #f1f2f6;
+      border-bottom: 2px solid #dcdde1;
+      border-radius: 0 0 10px 10px;
+    }
+
+    /* USER ICONS */
+    .bi-person-circle {
+      color: #57606f;
+    }
+
+    /* BUTTONS */
+    .btn-outline-danger {
+      border-color: #ff4757;
+      color: #ff4757;
+    }
+    .btn-outline-danger:hover {
+      background-color: #ff4757;
+      color: white;
+    }
+
+    .btn-outline-primary {
+      border-color: #3742fa;
+      color: #3742fa;
+    }
+    .btn-outline-primary:hover {
+      background-color: #3742fa;
+      color: white;
+    }
+
+    /* EDIT BUTTONS - pink */
+    .btn-edit {
+      background-color: #ff63c4;
+      border-color: #ff63c4;
+      color: white;
+    }
+
+    .btn-edit:hover {
+      background-color: #ff4aa1;
+      border-color: #ff4aa1;
+      color: white;
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <div class="container-fluid">
+    <div class="row">
+
+      <!-- SIDEBAR -->
+      <div id="sidebar" class="col-md-2 sidebar">
+
+        <h4>
+          Task Manager
+        </h4>
+
+        <a href="/" class="active">
+          <i class="bi bi-speedometer2"></i>
+          Dashboard
+        </a>
+
+        <a href="{% url 'task_list' %}">
+          <i class="bi bi-list-task"></i>
+          Tasks
+        </a>
+
+        <a href="{% url 'category_list' %}">
+          <i class="bi bi-folder"></i>
+          Categories
+        </a>
+
+        <a href="{% url 'priority_list' %}">
+          <i class="bi bi-lightning"></i>
+          Priorities
+        </a>
+
+        <a href="{% url 'note_list' %}">
+          <i class="bi bi-journal-text"></i>
+          Notes
+        </a>
+
+        <a href="{% url 'subtask_list' %}">
+          <i class="bi bi-check2-square"></i>
+          Subtasks
+        </a>
+
+      </div>
+
+      <div class="col-md-10">
+
+        <div class="d-flex justify-content-between align-items-center border-bottom p-3">
+
+          <span class="toggle-btn" onclick="toggleSidebar()">
+            <i class="bi bi-list"></i>
+          </span>
+
+          {% load socialaccount %}
+
+          {% if user.is_authenticated %}
+            <div class="d-flex align-items-center gap-3">
+
+              {% if user.socialaccount_set.all.0 %}
+                <img src="{{ user.socialaccount_set.all.0.extra_data.picture }}"
+                  class="rounded-circle"
+                  width="35" height="35">
+              {% else %}
+                <i class="bi bi-person-circle fs-4"></i>
+              {% endif %}
+
+              <span class="fw-semibold">
+                {{ user.username }}
+              </span>
+
+              <a href="{% url 'account_logout' %}" class="btn btn-outline-danger btn-sm">
+                Logout
+              </a>
+
+            </div>
+
+          {% else %}
+            <a href="{% url 'account_login' %}" class="btn btn-outline-primary">
+              Login
+            </a>
+          {% endif %}
+
+        </div>
+
+        <div class="content">
+
+          {% block content %}
+          {% endblock %}
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    function toggleSidebar() {
+      let sidebar = document.getElementById("sidebar");
+      if (sidebar.style.display === "none") {
+        sidebar.style.display = "block";
+      } else {
+        sidebar.style.display = "none";
+      }
+    }
+  </script>
+
+</body>
+
+</html>
